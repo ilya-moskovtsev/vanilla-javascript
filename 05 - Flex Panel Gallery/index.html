@@ -108,6 +108,7 @@
 
     .panel.open {
         font-size: 40px;
+        flex: 5;
     }
 
 </style>
@@ -148,8 +149,10 @@
         this.classList.toggle('open');
     }
 
-    function toggleShowText() {
-        this.classList.toggle('show-text');
+    function toggleShowText(e) {
+        if (e.propertyName.includes('flex')) {
+            this.classList.toggle('show-text');
+        }
     }
 
     panels.forEach(panel => panel.addEventListener('click', toggleOpen));
