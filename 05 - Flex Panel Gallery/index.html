@@ -145,8 +145,19 @@
 <script>
     const panels = document.querySelectorAll('.panel');
 
+    let isToggledOpen = false;
+
     function toggleOpen() {
+        if (isToggledOpen) {
+            return false;
+        }
+        isToggledOpen = true;
+
         this.classList.toggle('open');
+
+        setTimeout(() => {
+            isToggledOpen = false;
+        }, 1000);
     }
 
     function toggleShowText(e) {
