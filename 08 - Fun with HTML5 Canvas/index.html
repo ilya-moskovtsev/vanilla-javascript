@@ -11,16 +11,23 @@
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     ctx = canvas.getContext('2d');
+    let hue = 0;
 
     let [startX, startY] = [0, 0];
     let shouldDraw = false;
 
     function draw(e) {
+        changeColor();
         ctx.beginPath();
         ctx.moveTo(startX, startY);
         ctx.lineTo(e.offsetX, e.offsetY);
         ctx.stroke();
         [startX, startY] = [e.offsetX, e.offsetY];
+        console.log(hue);
+    }
+
+    function changeColor() {
+        ctx.strokeStyle = `hsl(${hue++}, 100%, 50%)`;
     }
 
     canvas.addEventListener('mousemove', (e) => shouldDraw && draw(e));
