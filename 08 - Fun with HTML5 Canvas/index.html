@@ -13,6 +13,9 @@
     ctx = canvas.getContext('2d');
     let hue = 0;
 
+    ctx.lineWidth = 1;
+    let makeWider = true;
+
     let [startX, startY] = [0, 0];
     let shouldDraw = false;
 
@@ -23,11 +26,17 @@
         ctx.lineTo(e.offsetX, e.offsetY);
         ctx.stroke();
         [startX, startY] = [e.offsetX, e.offsetY];
-        console.log(hue);
+        changeLineWidth();
     }
 
     function changeColor() {
         ctx.strokeStyle = `hsl(${hue++}, 100%, 50%)`;
+    }
+
+    function changeLineWidth() {
+        if (ctx.lineWidth > 360) makeWider = false;
+        if (ctx.lineWidth < 2) makeWider = true;
+        makeWider ? ctx.lineWidth++ : ctx.lineWidth--;
     }
 
     canvas.addEventListener('mousemove', (e) => shouldDraw && draw(e));
