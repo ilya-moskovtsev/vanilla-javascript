@@ -1,46 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Console Tricks!</title>
+    <meta charset="UTF-8">
+    <title>Console Tricks!</title>
 </head>
 <body>
 
-  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+<p onClick="makeGreen()">×BREAK×DOWN×</p>
 
-  <script>
-    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+<script>
+    const dogs = [{name: 'Snickers', age: 2}, {name: 'hugo', age: 8}];
 
     function makeGreen() {
-      const p = document.querySelector('p');
-      p.style.color = '#BADA55';
-      p.style.fontSize = '50px';
+        const p = document.querySelector('p');
+        p.style.color = '#BADA55';
+        p.style.fontSize = '50px';
     }
 
     // Regular
+    console.log(dogs);
+    console.table(dogs);
 
     // Interpolated
+    console.log(`Dogs count: ${dogs.length}`);
 
     // Styled
+    console.log('%c Big dog', 'font-size: 50px');
 
     // warning!
+    console.warn('Beware of dogs!');
 
     // Error :|
+    console.error('No dogs found!');
 
     // Info
+    console.info('I like hot dogs!');
 
     // Testing
+    console.assert(2 < 1, 'Wrong');
 
     // clearing
+    console.clear();
 
     // Viewing DOM Elements
+    const p = document.querySelector('p');
+    console.log(p);
+    console.dir(p);
 
     // Grouping together
+    dogs.forEach((dog) => {
+        console.groupCollapsed(`${dog.name}`);
+        console.table(dog);
+        console.groupEnd();
+    });
 
     // counting
+    console.count('Hi');
+    console.count('Hello');
+    console.count('Hello');
+    console.count('Hi');
+    console.count('Hello');
+    console.count('Hi');
+    console.count('Hi');
 
     // timing
+    console.time('fetching from git hub');
+    fetch('https://api.github.com/users/ilya-moskovtsev')
+        .then(response => response.json())
+        .then(json => {
+                console.timeEnd('fetching from git hub');
+                console.log(json);
+            }
+        );
 
-  </script>
+</script>
 </body>
 </html>
