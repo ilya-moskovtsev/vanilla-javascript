@@ -105,17 +105,22 @@ When a user clicks a checkbox, holds Shift, and then clicks another checkbox a f
     let lastChangedId = null;
     let lastChangedChecked = null;
 
-    inbox.addEventListener('change', checkMultiple);
-    checkboxes.forEach(checkbox => checkbox.addEventListener('change', setLastChanged));
+    checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
 
+    function handleCheck(e) {
+        let i = 0;
+        let item = this.parentElement;
+        while ((item = item.previousSibling.previousSibling) != null) i++;
+        previousChanged = lastChangedId;
+        lastChangedId = i;
+        lastChangedChecked = this.checked;
 
-    function checkMultiple() {
         console.log({previousChanged});
         console.log({lastChangedId});
         console.log({lastChangedChecked});
-        console.log({isShiftDown});
 
-        if (previousChanged != null && isShiftDown) {
+
+        if (previousChanged != null && e.shiftKey) {
             const topToBottom = lastChangedId > previousChanged;
 
             if (topToBottom) {
@@ -130,28 +135,6 @@ When a user clicks a checkbox, holds Shift, and then clicks another checkbox a f
                 }
             }
         }
-    }
-
-    function setLastChanged() {
-        let i = 0;
-        let item = this.parentElement;
-        while ((item = item.previousSibling.previousSibling) != null) i++;
-        previousChanged = lastChangedId;
-        lastChangedId = i;
-        lastChangedChecked = this.checked;
-    }
-
-    window.addEventListener('keydown', (e) => e.key === 'Shift' && shiftDown());
-    window.addEventListener('keyup', (e) => e.key === 'Shift' && shiftUp());
-
-    let isShiftDown = false;
-
-    function shiftDown() {
-        isShiftDown = true;
-    }
-
-    function shiftUp() {
-        isShiftDown = false;
     }
 </script>
 </body>
