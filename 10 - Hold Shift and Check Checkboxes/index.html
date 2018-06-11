@@ -98,44 +98,35 @@ When a user clicks a checkbox, holds Shift, and then clicks another checkbox a f
 </div>
 
 <script>
-    const inbox = document.querySelector('.inbox');
-    const checkboxes = inbox.querySelectorAll('input[type="checkbox"]');
-
-    let previousChanged = null;
-    let lastChangedId = null;
-    let lastChangedChecked = null;
-
-    checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
+    const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
+    let previous = null;
+    let last = null;
+    let inBetweenPreviousAndLast = false;
+    let oneMore = false;
 
     function handleCheck(e) {
-        let i = 0;
-        let item = this.parentElement;
-        while ((item = item.previousSibling.previousSibling) != null) i++;
-        previousChanged = lastChangedId;
-        lastChangedId = i;
-        lastChangedChecked = this.checked;
+        previous = last;
+        last = this;
 
-        console.log({previousChanged});
-        console.log({lastChangedId});
-        console.log({lastChangedChecked});
+        console.log({previous});
+        console.log({last});
 
+        if (previous != null && e.shiftKey) {
+            checkboxes.forEach(checkbox => {
+                if (checkbox === previous || checkbox === last) inBetweenPreviousAndLast = !inBetweenPreviousAndLast;
 
-        if (previousChanged != null && e.shiftKey) {
-            const topToBottom = lastChangedId > previousChanged;
-
-            if (topToBottom) {
-                for (let i = previousChanged; i <= lastChangedId; i++) {
-                    console.log(i);
-                    checkboxes[i].checked = lastChangedChecked;
+                if (inBetweenPreviousAndLast) {
+                    checkbox.checked = last.checked;
+                    oneMore = true;
+                } else if (oneMore) {
+                    checkbox.checked = last.checked;
+                    oneMore = false;
                 }
-            } else {
-                for (let i = previousChanged; i >= lastChangedId; i--) {
-                    console.log(i);
-                    checkboxes[i].checked = lastChangedChecked;
-                }
-            }
+            });
         }
     }
+
+    checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
 </script>
 </body>
 </html>
