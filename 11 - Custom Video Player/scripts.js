@@ -18,5 +18,11 @@ function handleToggle() {
     toggle.textContent = icon;
 }
 
+function handleSkip() {
+    video.currentTime += parseFloat(this.dataset.skip);
+}
+
 toggle.addEventListener('click', handleToggle);
 video.addEventListener('click', handleToggle);
+
+skipButtons.forEach(skipButton => skipButton.addEventListener('click', handleSkip));
