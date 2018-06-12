@@ -26,6 +26,14 @@ function handleRange() {
     video[this.name] = this.value;
 }
 
+function handleProgress(e) {
+    video.currentTime = (e.offsetX / progress.offsetWidth) * video.duration;
+}
+
+function handleProgressBar() {
+    progressBar.style.flexBasis = `${(video.currentTime / video.duration) * 100}%`;
+}
+
 toggle.addEventListener('click', handleToggle);
 video.addEventListener('click', handleToggle);
 
@@ -40,3 +48,7 @@ ranges.forEach(range => {
         );
     }
 );
+
+progress.addEventListener('click', handleProgress);
+
+video.addEventListener('timeupdate', handleProgressBar);
