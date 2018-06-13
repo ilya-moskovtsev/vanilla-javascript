@@ -7,6 +7,17 @@
 </head>
 <body>
 <script>
+    let sequence = [];
+    let secretCode = 'IDDQD';
+
+    function handleKeySequence(e) {
+        sequence.push(e.key);
+        sequence.splice(-secretCode.length - 1, sequence.length - secretCode.length);
+        console.log(sequence);
+        sequence.join('').toLocaleUpperCase().includes(secretCode) && cornify_add();
+    }
+
+    window.addEventListener('keyup', handleKeySequence)
 </script>
 </body>
 </html>
