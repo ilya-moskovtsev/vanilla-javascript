@@ -158,6 +158,25 @@
         };
     }
 
+    const slideIns = document.querySelectorAll('.slide-in');
+
+    function toggleActive() {
+        slideIns.forEach(slideIn => {
+            const windowTop = window.pageYOffset;
+            const windowBottom = window.pageYOffset + window.innerHeight;
+
+            const imageTop = slideIn.offsetTop;
+            const imageMiddle = slideIn.offsetTop + slideIn.offsetHeight / 2;
+            const imageBottom = slideIn.offsetTop + slideIn.offsetHeight;
+
+            if (windowBottom < imageTop) slideIn.classList.remove('active');
+            if (windowBottom > imageMiddle) slideIn.classList.add('active');
+            if (windowTop > imageBottom) slideIn.classList.remove('active');
+        });
+    }
+
+    window.addEventListener('scroll', debounce(toggleActive));
+
 </script>
 
 <style>
