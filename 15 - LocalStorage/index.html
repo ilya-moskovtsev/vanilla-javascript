@@ -47,14 +47,23 @@
         target.innerHTML = items.map((item, index) => {
             return `
             <li>
-            <input type="checkbox" id="item${index}" ${item.itemChecked ? 'checked' : ''}>
+            <input type="checkbox" data-id="${index}" id="item${index}" ${item.itemChecked ? 'checked' : ''}>
             <label for="item${index}">${item.itemName}</label>
             </li>
             `;
         }).join('');
     }
 
+    function toggleChecked(e) {
+        if (e.target.tagName === 'INPUT') {
+            const index = e.target.dataset.id;
+            items[index].itemChecked = !items[index].itemChecked;
+            localStorage.setItem('items', JSON.stringify(items));
+        }
+    }
+
     addItemsForm.addEventListener('submit', addItem);
+    itemsList.addEventListener('click', toggleChecked);
 
 </script>
 
