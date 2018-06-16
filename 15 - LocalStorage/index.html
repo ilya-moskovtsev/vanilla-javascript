@@ -23,11 +23,18 @@
         <input type="text" name="item" placeholder="Item Name" required>
         <input type="submit" value="+ Add Item">
     </form>
+    <p></p>
+    <div class="check-all">Check All</div>
+    <div class="uncheck-all">Uncheck All</div>
+    <div class="delete-all">Delete All</div>
 </div>
 
 <script>
     const addItemsForm = document.querySelector('.add-items');
     const itemsList = document.querySelector('.plates');
+    const checkAllButton = document.querySelector('.check-all');
+    const uncheckAllButton = document.querySelector('.uncheck-all');
+    const deleteAllButton = document.querySelector('.delete-all');
     const items = JSON.parse(localStorage.getItem('items')) || [];
     showItems(items, itemsList);
 
@@ -62,8 +69,29 @@
         }
     }
 
+    function checkAll() {
+        items.forEach(item => item.itemChecked = true);
+        localStorage.setItem('items', JSON.stringify(items));
+        showItems(items, itemsList);
+    }
+
+    function uncheckAll() {
+        items.forEach(item => item.itemChecked = false);
+        localStorage.setItem('items', JSON.stringify(items));
+        showItems(items, itemsList);
+    }
+
+    function deleteAll() {
+        items.length = 0;
+        localStorage.setItem('items', JSON.stringify(items));
+        showItems(items, itemsList);
+    }
+
     addItemsForm.addEventListener('submit', addItem);
     itemsList.addEventListener('click', toggleChecked);
+    checkAllButton.addEventListener('click', checkAll);
+    uncheckAllButton.addEventListener('click', uncheckAll);
+    deleteAllButton.addEventListener('click', deleteAll);
 
 </script>
 
