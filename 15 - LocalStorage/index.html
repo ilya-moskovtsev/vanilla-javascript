@@ -28,7 +28,8 @@
 <script>
     const addItemsForm = document.querySelector('.add-items');
     const itemsList = document.querySelector('.plates');
-    const items = [];
+    const items = JSON.parse(localStorage.getItem('items')) || [];
+    showItems(items, itemsList);
 
     function addItem(e) {
         e.preventDefault();
@@ -38,7 +39,7 @@
             itemChecked: false,
         };
         items.push(item);
-        console.table(items);
+        localStorage.setItem('items', JSON.stringify(items));
         showItems(items, itemsList);
     }
 
@@ -46,7 +47,7 @@
         target.innerHTML = items.map((item, index) => {
             return `
             <li>
-            <input type="checkbox" id="item${index}" ${item.itemChecked}>
+            <input type="checkbox" id="item${index}" ${item.itemChecked ? 'checked' : ''}>
             <label for="item${index}">${item.itemName}</label>
             </li>
             `;
