@@ -7,8 +7,12 @@
 <body>
 
 <div class="hero">
-    <h1 contenteditable>🔥WOAH!</h1>
+    <h1 contenteditable>🌴<img src="palm-tree.png">🌴</h1>
 </div>
+<div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/"
+                                                                                        title="Flaticon">www.flaticon.com</a>
+    is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0"
+                      target="_blank">CC 3.0 BY</a></div>
 
 <style>
     html {
@@ -26,15 +30,42 @@
         justify-content: center;
         align-items: center;
         color: black;
+        cursor: url('sun.png'), auto;
     }
 
     h1 {
         text-shadow: 10px 10px 0 rgba(0, 0, 0, 1);
         font-size: 100px;
     }
+
+    img {
+        filter: drop-shadow(5px 5px 5px #222);
+    }
 </style>
 
 <script>
+    const hero = document.querySelector('.hero');
+    const text = document.querySelector('h1');
+    const images = document.querySelectorAll('img');
+
+    const shadowRange = 100; //from -50 to 50;
+
+    function shadow(e) {
+        let {offsetX: x, offsetY: y} = e;
+        if (e.target !== this) {
+            const {offsetLeft: left, offsetTop: top} = e.target;
+            x += left;
+            y += top;
+        }
+        const {offsetWidth: width, offsetHeight: height} = this;
+        const shadowX = Math.round(x / width * shadowRange - shadowRange / 2);
+        const shadowY = Math.round(y / height * shadowRange - shadowRange / 2);
+        console.log(shadowX, shadowY);
+        text.style.textShadow = `${-shadowX}px ${-shadowY}px 4px rgba(0, 0, 0, 1)`;
+        images.forEach(image => image.style.filter = `drop-shadow(${-shadowX}px ${-shadowY}px 4px rgba(0, 0, 0, 1))`);
+    }
+
+    hero.addEventListener('mousemove', shadow);
 </script>
 </body>
 </html>
