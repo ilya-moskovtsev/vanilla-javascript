@@ -25,8 +25,12 @@
         const speechRecognitionAlternative = speechRecognitionResult[0];
         const transcript = speechRecognitionAlternative.transcript;
 
+        p.textContent = transcript;
         console.log(transcript);
-
+        if (speechRecognitionResult.isFinal) {
+            p = document.createElement('p');
+            words.appendChild(p);
+        }
     }
 
     recognition.addEventListener('result', addParagraph);
