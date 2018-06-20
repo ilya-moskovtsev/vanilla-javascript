@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Speech Detection</title>
+    <script type="text/javascript" src="http://www.cornify.com/js/cornify.js"></script>
 </head>
 <body>
 
@@ -27,6 +28,7 @@
 
         p.textContent = transcript;
         console.log(transcript);
+        transcript.includes('тирамису') && cornify_add();
         if (speechRecognitionResult.isFinal) {
             p = document.createElement('p');
             words.appendChild(p);
