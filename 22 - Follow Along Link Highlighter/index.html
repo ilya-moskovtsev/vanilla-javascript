@@ -31,7 +31,20 @@
 </div>
 
 <script>
-    // 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀
+    const links = document.querySelectorAll('a');
+    const highlight = document.createElement('span');
+    highlight.classList.add('highlight');
+    document.body.appendChild(highlight);
+
+    function highlightLink() {
+        const rect = this.getBoundingClientRect();
+
+        highlight.style.setProperty('width', `${rect.width}px`);
+        highlight.style.setProperty('height', `${rect.height}px`);
+        highlight.style.setProperty('transform', `translate(${rect.left + window.scrollX}px, ${rect.top + window.scrollY}px)`);
+    }
+
+    links.forEach(link => link.addEventListener('mouseenter', highlightLink));
 </script>
 </body>
 </html>
