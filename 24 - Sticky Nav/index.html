@@ -170,7 +170,20 @@
 </div>
 
 <script>
+    const header = document.querySelector('header');
+    const nav = document.querySelector('#main');
 
+    function fixNav() {
+        if (window.scrollY >= header.offsetHeight) {
+            document.body.classList.add('fix-nav');
+            document.body.style.paddingTop = `${nav.offsetHeight}px`;
+        } else {
+            document.body.classList.remove('fix-nav');
+            document.body.style.paddingTop = `0px`;
+        }
+    }
+
+    window.addEventListener('scroll', fixNav);
 </script>
 
 </body>
