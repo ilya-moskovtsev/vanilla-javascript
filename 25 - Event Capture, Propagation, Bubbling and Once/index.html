@@ -40,8 +40,18 @@
     }
 </style>
 
-<button></button>
+<button class="button"></button>
 <script>
+    const divs = document.querySelectorAll('div');
+    const button = document.querySelector('button');
+
+    function logClass(e) {
+        console.log(this.classList.value);
+        e.stopPropagation();
+    }
+
+    divs.forEach(div => div.addEventListener('click', logClass, {capture: true}));
+    button.addEventListener('click', logClass, {once: true});
 
 </script>
 </body>
