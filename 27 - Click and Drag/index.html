@@ -35,6 +35,33 @@
 </div>
 
 <script>
+    const items = document.querySelector('.items');
+
+    let canDrag = false;
+    let initialX;
+    let initialScrollLeft;
+
+    function allowDrag(e) {
+        canDrag = true;
+        items.classList.add('active');
+        initialX = e.pageX;
+        initialScrollLeft = items.scrollLeft;
+    }
+
+    function preventDrag() {
+        canDrag = false;
+        items.classList.remove('active');
+    }
+
+    function handleDrag(e) {
+        const walk = e.pageX - initialX;
+        items.scrollLeft = initialScrollLeft - walk;
+    }
+
+    items.addEventListener('mousedown', allowDrag);
+    items.addEventListener('mouseup', preventDrag);
+    items.addEventListener('mouseleave', preventDrag);
+    items.addEventListener('mousemove', (e) => canDrag && handleDrag(e));
 </script>
 
 </body>
