@@ -5,7 +5,7 @@
     <title>Follow Along Nav</title>
 </head>
 <body>
-<h2>Cool</h2>
+<h2>Follow Along Nav</h2>
 <nav class="top">
     <div class="dropdownBackground">
         <span class="arrow"></span>
@@ -228,6 +228,40 @@
 </style>
 
 <script>
+    const topNav = document.querySelector('nav.top');
+    const dropdownBackground = document.querySelector('.dropdownBackground');
+    const dropdownTriggers = topNav.querySelectorAll('ul.cool > li');
+
+    function handleEnter() {
+        this.classList.add('trigger-enter');
+        setTimeout(() => this.classList.contains('trigger-enter') && this.classList.add('trigger-enter-active'), 150);
+        dropdownBackground.classList.add('open');
+
+        const dropdown = this.querySelector('.dropdown');
+        const dropdownRect = dropdown.getBoundingClientRect();
+        console.log(dropdownRect);
+        const dropdownBackgroundRect = {
+            height: dropdownRect.height,
+            width: dropdownRect.width,
+            left: dropdownRect.left,
+            top: dropdownRect.top - topNav.offsetTop,
+        };
+        console.log(dropdownBackgroundRect);
+        dropdownBackground.style.height = `${dropdownBackgroundRect.height}px`;
+        dropdownBackground.style.width = `${dropdownBackgroundRect.width}px`;
+        dropdownBackground.style.left = `${dropdownBackgroundRect.left}px`;
+        dropdownBackground.style.top = `${dropdownBackgroundRect.top}px`;
+    }
+
+    function handleLeave() {
+        this.classList.remove('trigger-enter', 'trigger-enter-active');
+        dropdownBackground.classList.remove('open');
+    }
+
+    dropdownTriggers.forEach(trigger => {
+        trigger.addEventListener('mouseenter', handleEnter);
+        trigger.addEventListener('mouseleave', handleLeave);
+    });
 </script>
 
 </body>
