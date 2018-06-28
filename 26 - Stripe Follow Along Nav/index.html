@@ -239,18 +239,18 @@
 
         const dropdown = this.querySelector('.dropdown');
         const dropdownRect = dropdown.getBoundingClientRect();
+        const navRect = topNav.getBoundingClientRect();
         console.log(dropdownRect);
         const dropdownBackgroundRect = {
             height: dropdownRect.height,
             width: dropdownRect.width,
-            left: dropdownRect.left,
-            top: dropdownRect.top - topNav.offsetTop,
+            left: dropdownRect.left - navRect.left,
+            top: dropdownRect.top - navRect.top
         };
         console.log(dropdownBackgroundRect);
-        dropdownBackground.style.height = `${dropdownBackgroundRect.height}px`;
-        dropdownBackground.style.width = `${dropdownBackgroundRect.width}px`;
-        dropdownBackground.style.left = `${dropdownBackgroundRect.left}px`;
-        dropdownBackground.style.top = `${dropdownBackgroundRect.top}px`;
+        dropdownBackground.style.setProperty('height', `${dropdownBackgroundRect.height}px`);
+        dropdownBackground.style.setProperty('width', `${dropdownBackgroundRect.width}px`);
+        dropdownBackground.style.setProperty('transform', `translate(${dropdownBackgroundRect.left}px, ${dropdownBackgroundRect.top}px)`);
     }
 
     function handleLeave() {
