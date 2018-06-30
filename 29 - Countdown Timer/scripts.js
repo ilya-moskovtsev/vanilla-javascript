@@ -17,7 +17,7 @@ function timer() {
 }
 
 function displayTimeLeft() {
-    const minutesLeft = Math.round(secondsLeft / 60);
+    const minutesLeft = Math.floor(secondsLeft / 60);
     const remainderSecondsLeft = Math.round(secondsLeft % 60);
     const timeLeftStr = `${minutesLeft < 10 ? '0' : ''}${minutesLeft}:${remainderSecondsLeft < 10 ? '0' : ''}${remainderSecondsLeft}`;
     document.title = timeLeftStr;
